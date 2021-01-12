@@ -2,12 +2,9 @@
 Transform a .JSON annotation file to multiple YOLOv5 annotation files
 
 This code is doing the following:
-creates a folder for keeping the YOLOv5 annotation files
-imports a .JSON file
-read the .JSON file
-goes through relevant records and creates files with object names and coordinates
+ - imports a .JSON file
+ - read the .JSON file
+ - read the size of all .JPG files, needed for YOLOv5 coordinates, because these coordinates are percents
+ - goes through relevant records and creates files with object names and coordinates
+     - transforms the coordinates from .JSON (in this case COCO: top-left and bottom right of the box) to YOLOv5: Xcenter, Ycenter, weight, height
 
-
-Missing:
- YOLOv5 requires different coordinates instead of top-left and bottom right
- the next version will contain the transfrmation from "top-left and bottom right" to YOLOv5 coordinates
