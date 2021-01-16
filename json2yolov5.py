@@ -16,7 +16,28 @@ def convert(wi, hi, x1, y1, x2, y2):
     h = h*dh
     return (x,y,w,h)
 
-
+#[ 'car', 'truck', 'person', 'traffic_sign', 'traffic_light', 'bus', 'rider', 'bike']
+def object_type_to_number(type):
+    #print(type)
+    number = 0
+    if type == "car":
+        number = 1
+    if type == "truck":
+        number = 2
+    if type == "person":
+        number = 3
+    if type == "traffic sign":
+        number = 4                
+    if type == "traffic light":
+        number = 5
+    if type == "bus":
+        number = 6
+    if type == "rider":
+        number = 7
+    if type == "bike":
+        number = 8
+    #print(number)
+    return number                            
 
 # create a folder for the YOLOv5 annotations if it doesn't exist
 if not os.path.exists('YOLOv5_results'):
@@ -42,16 +63,19 @@ for p in data:
     # create a file with "filename" name
     
     for i in p["labels"]:
-        print(i["category"])
+        #print(i["category"])
         if (i["category"] != "drivable area") and (i["category"] != "lane") :     
             x, y, w, h = convert(wi,hi,i["box2d"]["x1"], i["box2d"]["y1"], i["box2d"]["x2"], i["box2d"]["y2"])
             mode = 'a' if os.path.exists(filename2) else 'w'
             with open(filename2, mode) as f:
-                textline = str(i["category"]) + " " + str(x) + " " + str(y) + " " + str(w) + " " + str(h)
+                number = str(object_type_to_number(i["category"]))
+                #print(number)
+                textline = number + " " + str(x) + " " + str(y) + " " + str(w) + " " + str(h)
+                print(textline)
                 f.write(textline + '\n')
-            print(i["box2d"]["x1"])  
-            print(i["box2d"]["y1"]) 
-            print(i["box2d"]["x2"]) 
-            print(i["box2d"]["y2"])
+            #print(i["box2d"]["x1"])  
+            #print(i["box2d"]["y1"]) 
+            #print(i["box2d"]["x2"]) 
+            #print(i["box2d"]["y2"])
     
     
